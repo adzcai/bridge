@@ -4,11 +4,11 @@ import sys
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
-from bs4 import BeautifulSoup
-from googlesearch import search
-import config
-import requests
 import json
+import requests
+import config
+from googlesearch import search
+from bs4 import BeautifulSoup
 
 # Configure Browser Header and URL
 headers = {
@@ -71,4 +71,4 @@ def check_price(query):
         return title, price, currency
 
 
-print(check_weather("Toronto"))
+print(check_price('GOGALE'))
