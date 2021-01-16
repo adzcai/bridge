@@ -1,8 +1,9 @@
 from typing import no_type_check_decorator
-# from mail import Mail
-# from tweet import Tweet
+import commands.mail
+import commands.tweet
 
-# commands = {
-#   "mail": Mail,
-#   "tweet": Tweet
-# }
+commands = {
+  "mail": commands.mail.Mail,
+  "tweet": commands.tweet.Tweet,
+  "stock": commands.stock.Stock
+}

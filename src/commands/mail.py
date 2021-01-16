@@ -1,5 +1,5 @@
 import smtplib, ssl
-from base_command import Command
+from commands.base_command import Command
 
 class Mail(Command):
     """Command for emailing a user.

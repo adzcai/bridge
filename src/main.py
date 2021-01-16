@@ -6,6 +6,7 @@ from twilio.twiml.messaging_response import MessagingResponse
 from commands import commands
 import config
 import requests
+import commands.utils
 
 # Flask app configuration
 app = Flask(__name__)
@@ -58,7 +59,9 @@ def send_message():
 def reply():
     body = request.values.get('Body', None)
     response = MessagingResponse()
-    if body == 'hi':
+    
+    if body == 'stock':
+        check_price()
         response.message("Hello World")
     else :
         response.message("Jazz Hands")
