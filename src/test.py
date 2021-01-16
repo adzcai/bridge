@@ -16,8 +16,6 @@ auth_token = config.auth_token
 client = Client(account_sid, auth_token)
 
 # Send Message
-
-
 @app.route("/")
 @cross_origin()
 def send_message():
@@ -26,9 +24,9 @@ def send_message():
     #     body='ok hands',
     #     to='+14168980216'
     # )
-    return "<h1>no</h1>"
+    return "<h1>jazz hands</h1>"
 
 
 # Main Driver
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(host="0.0.0.0")
