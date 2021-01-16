@@ -1,16 +1,15 @@
+# Import Libraries
 import os
 import sys
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
-import json
-import requests
-import config
-from googlesearch import search
 from bs4 import BeautifulSoup
-
-
-# Import Libraries
+from googlesearch import search
+import math
+import config
+import requests
+import json
 
 # Configure Browser Header and URL
 headers = {
@@ -18,28 +17,25 @@ headers = {
 URL = ''
 
 # Fetch Weather Data
+
+
 def check_weather(city_name):
     api_key = config.open_weather_api_key
-    base_url = "http: // api.openweathermap.org/data/2.5/weather?"
+    base_url = "http://api.openweathermap.org/data/2.5/weather?"
     full_url = base_url + "appid=" + api_key + "&q=" + city_name
     response = requests.get(full_url)
-    X = response.json()
+    x = response.json()
 
-    if X["cod"] != "404":
-        y = X["main"]
+    if x["cod"] != "404":
+        y = x["main"]
         current_temperature = y["temp"]
-        current_humidity = y["humidity"]
-        z = X["weather"]
+        z = x["weather"]
         weather_description = z[0]["description"]
-
-        # convert temperature to celsius from kelvin
-        print("Temperature in celsius:" + str(current_temperature-273.15))
-
-        print("Humidity as a percentage:" + str(current_humidity))
-        print(str(weather_description))
+        current_temperature -= -273.15
+        return math.floor(current_temperature), weather_description
 
     else:
-        print("City not found")
+        return "City not found"
 
 
 # Internet Search
@@ -76,4 +72,4 @@ def check_price(query):
         return title, price, currency
 
 
-print(check_price("DJI"))
+print(check_weather("Toronto"))
