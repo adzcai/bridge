@@ -1,25 +1,26 @@
-import os, sys
+import os
+import sys
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
-# Import Libraries
-from bs4 import BeautifulSoup
-from googlesearch import search
-import config
-import requests
 import json
+import requests
+import config
+from googlesearch import search
+from bs4 import BeautifulSoup
+
+
+# Import Libraries
 
 # Configure Browser Header and URL
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36'}
 URL = ''
 
-# Return weather data
-api_key = config.open_weather_api_key
-base_url = "http: // api.openweathermap.org/data/2.5/weather?"
-
-
+# Fetch Weather Data
 def check_weather(city_name):
+    api_key = config.open_weather_api_key
+    base_url = "http: // api.openweathermap.org/data/2.5/weather?"
     full_url = base_url + "appid=" + api_key + "&q=" + city_name
     response = requests.get(full_url)
     X = response.json()
@@ -27,15 +28,14 @@ def check_weather(city_name):
     if X["cod"] != "404":
         y = X["main"]
         current_temperature = y["temp"]
-        current_pressure = y["pressure"]
-        current_humidiy = y["humidity"]
+        current_humidity = y["humidity"]
         z = X["weather"]
         weather_description = z[0]["description"]
 
         # convert temperature to celsius from kelvin
-        print("Temperature in celsius:" + str(current_temprature-273.15))
+        print("Temperature in celsius:" + str(current_temperature-273.15))
 
-        print("Humidity as a percentage:" + str(current__humidity))
+        print("Humidity as a percentage:" + str(current_humidity))
         print(str(weather_description))
 
     else:
@@ -43,8 +43,6 @@ def check_weather(city_name):
 
 
 # Internet Search
-
-
 def google_query(query):
     link = []
     for j in search(query, tld="ca", num=10, stop=10, pause=2):
@@ -52,9 +50,9 @@ def google_query(query):
     return link
 
 # Check Price of Stock
-    
 
-def return_stock_price():
+
+def return_stock_price(URL):
     try:
         page = requests.get(URL, headers=headers)
         soup = BeautifulSoup(page.content, 'html.parser')
@@ -68,14 +66,14 @@ def return_stock_price():
     return currency, title, price
 
 
-def check_price():
-    query = "MSFT" + " Yahoo Finance"
+def check_price(query):
+    query += query + " Yahoo Finance"
     URL = google_query(query)[0]
-    if check_price() == False:
+    if return_stock_price(URL) == "Error":
         return "Error"
     else:
-        currency, title, price = check_price()
-        return title, currency, price
+        currency, title, price = return_stock_price(URL)
+        return title, price, currency
 
 
-print(check_price())
+print(check_price("DJI"))
