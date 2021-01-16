@@ -2,6 +2,7 @@
 from flask import Flask, redirect, url_for, request
 from flask_cors import CORS, cross_origin
 from twilio.rest import Client
+from twilio.twiml.messaging_response import MessagingResponse
 from commands import commands
 import config
 import requests
@@ -43,7 +44,7 @@ def execute_command(message):
 def send_message():
     if request.method == 'POST':
         message = client.messages.create(
-            messaging_service_sid='MG0974823613bcb3dd8987e1dc8b58eda7',
+            from_='+18189462554',
             body='Testing',
             to='+14168980216'
         )
@@ -51,6 +52,17 @@ def send_message():
     else:
         return ""
 
+# Reply to SMS
+@app.route("/reply", methods=['GET', 'POST'])
+@cross_origin()
+def reply():
+    body = request.values.get('Body', None)
+    response = MessagingResponse()
+    if body == 'hi':
+        response.message("Hello World")
+    else :
+        response.message("Jazz Hands")
+    return str(response)
 
 # Main Driver
 if __name__ == "__main__":
