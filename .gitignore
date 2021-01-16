@@ -3,4 +3,5 @@ env/
 node_modules
 .next/
 config.py
+.google-cookie
 __pycache__
