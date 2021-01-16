@@ -71,4 +71,3 @@ def check_price(query):
         return title, price, currency
 
 
-print(check_price('GOGALE'))

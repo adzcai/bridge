@@ -7,6 +7,7 @@ from commands import commands
 import config
 import requests
 import commands.utils
+from commands import *
 
 # Flask app configuration
 app = Flask(__name__)
@@ -24,7 +25,6 @@ def execute_command(message):
     # read the first command token and strip the "!"
     command = message.split(' ')[0][1:]
 
-    
     if command not in commands:
         client.messages.create(
             messaging_service_sid='MG0974823613bcb3dd8987e1dc8b58eda7',
@@ -47,26 +47,35 @@ def send_message():
         message = client.messages.create(
             from_='+18189462554',
             body='Testing',
-            to='+14168980216'
+            to='+17809169089'
         )
         return "<h1>Success</h1>"
     else:
         return ""
 
 # Reply to SMS
+
+
 @app.route("/reply", methods=['GET', 'POST'])
 @cross_origin()
 def reply():
     body = request.values.get('Body', None)
-    response = MessagingResponse()
-    
-    if body == 'apple':
-        response.message(check_price(body))
-    else :
-        response.message("Jazz Hands")
-    return str(response)
+    command = base_command.Command(body).command
+    if command == "stock":
+        response = stock.Stock(body)
+        return_text = response.exec()
+    elif command == "mail":
+        response = mail.Mail(body)
+        return_text = response.exec()
+
+    res = MessagingResponse()
+    if return_text == '':
+        res.message("please type !help for response")
+    else:
+        res.message(return_text)
+    return str(res)
+
 
 # Main Driver
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
-
