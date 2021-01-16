@@ -60,9 +60,8 @@ def reply():
     body = request.values.get('Body', None)
     response = MessagingResponse()
     
-    if body == 'stock':
-        check_price()
-        response.message("Hello World")
+    if body == 'apple':
+        response.message(check_price(body))
     else :
         response.message("Jazz Hands")
     return str(response)
