@@ -1,4 +1,6 @@
-from ..src.commands.mail import Mail
+import sys
+sys.path.append("../src/commands")
+from mail import Mail
 
 cmd = Mail('''!mail; alexandercai@outlook.com; "Hello world"
 To Whom it May Concern:

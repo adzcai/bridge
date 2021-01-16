@@ -2,7 +2,7 @@
 from flask import Flask, redirect, url_for, request
 from flask_cors import CORS, cross_origin
 from twilio.rest import Client
-from commands.commands import commands
+from commands import commands
 import config
 import requests
 

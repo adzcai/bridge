@@ -14,6 +14,4 @@ class Mail(Command):
     def exec(self, parsed):
         to, subject = map(str.split, self.header)
 
-        
-
         print(to, subject)
