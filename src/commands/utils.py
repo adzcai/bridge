@@ -9,6 +9,7 @@ import requests
 import config
 from googlesearch import search
 from bs4 import BeautifulSoup
+import smtplib
 
 # Configure Browser Header and URL
 headers = {
@@ -45,8 +46,6 @@ def google_query(query):
     return link
 
 # Check Price of Stock
-
-
 def return_stock_price(URL):
     try:
         page = requests.get(URL, headers=headers)
@@ -70,4 +69,13 @@ def check_price(query):
         currency, title, price = return_stock_price(URL)
         return title, price, currency
 
-
+# Send email
+def send_mail(subject, body, reciever):
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.ehlo()
+    server.starttls()
+    server.ehlo()
+    server.login(config.email, config.password)
+    msg = f"Subject: {subject}\n\n{body}"
+    server.sendmail(config.email, reciever, msg)
+    server.quit()

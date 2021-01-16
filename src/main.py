@@ -19,35 +19,15 @@ account_sid = config.account_sid
 auth_token = config.auth_token
 client = Client(account_sid, auth_token)
 
-
-# Validate Message
-def execute_command(message):
-    # read the first command token and strip the "!"
-    command = message.split(' ')[0][1:]
-
-    if command not in commands:
-        client.messages.create(
-            messaging_service_sid='MG0974823613bcb3dd8987e1dc8b58eda7',
-            body='Type "!help" to get more info!',
-            to='+17809530388'
-        )
-        # send "type !help to get more information"
-        return
-
-    # otherwise, we know the command exists
-    cmd = commands[command](message)
-    cmd.exec()
-
-
 # Send Message
 @app.route("/", methods=['POST', 'GET'])
 @cross_origin()
 def send_message():
     if request.method == 'POST':
         message = client.messages.create(
-            from_='+18189462554',
+            from_= config.Twilio_number,
             body='Testing',
-            to='+17809169089'
+            to = config.reciever
         )
         return "<h1>Success</h1>"
     else:
