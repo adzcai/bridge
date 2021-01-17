@@ -8,7 +8,7 @@ class Mail(Command):
 
         Format:
         !mail;email1@email.com, email2@email.com;subject;body
-        """
+        """ 
         emails = self.args[0].split(',')
         for email in emails:
             send_mail(self.args[1], self.args[2], email)

@@ -1,17 +1,18 @@
 # Import Libraries
+import os
+import sys
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+import config
 import smtplib
 from pygoogletranslation import Translator
 from bs4 import BeautifulSoup
 from googlesearch import search
-# import config
 import requests
 import json
 import imdb
-# import os
-# import sys
-# currentdir = os.path.dirname(os.path.realpath(__file__))
-# parentdir = os.path.dirname(currentdir)
-# sys.path.append(parentdir)
+
 
 
 # Configure Browser Header and URL
