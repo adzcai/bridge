@@ -25,4 +25,5 @@ class Command:
         """
         header, *self.body = self.raw_text.splitlines()
         self.command, *self.args = map(str.strip, header.split(';'))
-        self.command = self.command[1:] # remove the initial "!"
+        if self.command.startswith('!'):
+            self.command = self.command[1:] # remove the initial "!"

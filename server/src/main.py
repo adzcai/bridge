@@ -56,6 +56,10 @@ def reply():
     elif command == "translate":
         response = translate.Translate(body)
         return_text = response.exec()
+    elif command == "movie":
+        response = movies.Movie(body)
+        return_text = response.exec()
+
     res = MessagingResponse()
     if return_text == '':
         res.message("please type !help for response")
@@ -66,4 +70,4 @@ def reply():
 
 # Main Driver
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0')

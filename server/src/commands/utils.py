@@ -107,71 +107,8 @@ def translate(word, language):
             "text") + 5:translation.find(', p')]
         return(f'{word} in {values[location]} => {translation}')
 
-# Find IMDB
-
-
-def find_imdb(query):
-    try:
-        query += ' IMDB'
-        URL = google_query(query)[0]
-        page = requests.get(URL, headers=headers)
-        html_content = page.text
-        soup = BeautifulSoup(html_content, 'lxml')
-        title = soup.title.string
-        title = title[0:-7]
-        return title
-    except Exception as e:
-        return('Movie could not be found')
-
-# Rotten Tomatoes Score
-
-
-def rotten_tomatoes_score(query):
-    try:
-        query += query + " Rotten Tomatoes"
-        URL = google_query(query)[0]
-        page = requests.get(URL, headers=headers)
-        soup = BeautifulSoup(page.content, 'html.parser')
-        res = soup.find(class_='mop-ratings-wrap__percentage').get_text()
-        check = res.split(' ')
-        for i in check:
-            if len(i) > 1:
-                return i
-    except Exception as e:
-        return 'Could not retrieve tomatometer score'
-
-# Fetch Movie Data
-
-
+# Find Movie
 def find_movie(movie):
-    moviesDB = imdb.IMDb()
-    movies = moviesDB.search_movie(find_imdb(movie))
-    id = movies[0].getID()
-    score = str(rotten_tomatoes_score(find_imdb(movie)))
-    score = score[:-2]
-    movie = moviesDB.get_movie(id)
-    title = movie['title']
-    year = movie['year']
-    rating = movie['rating']
-    out = movie['directors']
-    casting = ''
-    keys = list(movie.keys())
-    if 'plot outline' not in keys:
-        synopsis = movie['plot'][0]
-    else:
-        synopsis = movie['plot outline']
-    for i in range(8):
-        casting += str(movie['cast'][i]) + ', '
-    casting = casting[:-5]
-    if len(out) != 1:
-        directors = (f'{str(out[0])}, ')
-        del out[0]
-        for i in range(len(out)):
-            if i != len(out) - 1:
-                directors += (f'{str(out[i])}, ')
-            else:
-                directors += (str(out[i]))
-    else:
-        directors = str(out[0])
-
-    return title, year, rating, score, casting, directors, synopsis
+    x = requests.get(f'https://assistant-beta-app.herokuapp.com/movie/{movie}')
+    result = x.json()
+    return result
