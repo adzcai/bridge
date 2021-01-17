@@ -1,6 +1,7 @@
 import smtplib, ssl
 from commands.base_command import Command
 from commands.utils import send_mail
+
 class Mail(Command):
     def exec(self):
         """Command for emailing a user.

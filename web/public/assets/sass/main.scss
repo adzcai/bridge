@@ -419,6 +419,7 @@ article:last-child {
 .image {
   display: inline-block;
   border: 0;
+  overflow: hidden;
 
   img {
     display: block;
@@ -777,7 +778,6 @@ button,
         position: absolute;
         top: 0;
         height: 100%;
-        width: auto;
       }
     }
 
@@ -914,7 +914,14 @@ button,
   text-shadow: 0 0 0.5px rgba(255, 255, 255, 0.25);
   text-align: center;
   margin: 0;
-  padding: 14em 0 14em 0;
+
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   cursor: default;
 
   header {
