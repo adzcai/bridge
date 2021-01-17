@@ -9,7 +9,7 @@ from commands.utils import check_price
 class Stock(Command):
     def exec(self):
         return_text = ""
-        for stock in self.args:
-            title, price, currency = check_price(stock)
+        for stock in self.args[0].split(','):
+            title, price, currency = check_price(stock.strip())
             return_text += title + ", " + price+  ", " + currency + '\n'
         return return_text
