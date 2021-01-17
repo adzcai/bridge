@@ -20,6 +20,7 @@ hyperframe==5.2.0
 idna==2.10
 IMDbPY==2020.9.25
 itsdangerous==1.1.0
+gunicorn==20.0.4
 Jinja2==2.11.2
 joblib==1.0.0
 loguru==0.5.3
