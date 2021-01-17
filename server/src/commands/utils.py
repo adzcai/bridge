@@ -1,15 +1,17 @@
 # Import Libraries
+import smtplib
+from pygoogletranslation import Translator
+from bs4 import BeautifulSoup
+from googlesearch import search
+# import config
+import requests
+import json
 import os
 import sys
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
-import json
-import requests
-import config
-from googlesearch import search
-from bs4 import BeautifulSoup
-import smtplib
+
 
 # Configure Browser Header and URL
 headers = {
@@ -46,6 +48,8 @@ def google_query(query):
     return link
 
 # Check Price of Stock
+
+
 def return_stock_price(URL):
     try:
         page = requests.get(URL, headers=headers)
@@ -70,6 +74,8 @@ def check_price(query):
         return title, price, currency
 
 # Send email
+
+
 def send_mail(subject, body, reciever):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
@@ -79,3 +85,24 @@ def send_mail(subject, body, reciever):
     msg = f"Subject: {subject}\n\n{body}"
     server.sendmail(config.email, reciever, msg)
     server.quit()
+
+# Translate
+
+def translate(word, language):
+    translator = Translator()
+    languages = translator.glanguage()
+    keys = list(languages['sl'].keys())
+    values = list(languages['sl'].values())
+    location = -1
+    for i in range(len(keys)):
+        if language.lower() == keys[i].lower() or language.lower() == values[i].lower():
+            location = i
+    if location == -1:
+        return('Language entered is not supported')
+    else:
+        translation = str(translator.translate(word, dest=keys[location]))
+        translation = translation[translation.find(
+            "text") + 5:translation.find(', p')]
+        return(f'{word} in {values[location]} => {translation}')
+
+# 
