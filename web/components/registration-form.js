@@ -1,5 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
+import firebase from '../shared/firebase'
+
+const db = firebase.firestore();
 
 const StatusMessage = ({ state, verificationCode, handleVerificationCodeChange }) => {
   switch (state.state) {
@@ -63,6 +66,13 @@ export default function RegistrationForm() {
             state: 'awaiting code',
             message: ''
           });
+
+          db.collection('users').doc(phone).set({
+            name,
+            email,
+            phone,
+            verified: false
+          });
         } else {
           setState({
             state: 'error',
@@ -78,6 +88,9 @@ export default function RegistrationForm() {
           setState({
             state: 'verified',
             message: ''
+          });
+          db.collection('users').doc(phone).set({
+            verified: true
           });
         } else {
           setState({
@@ -104,13 +117,13 @@ export default function RegistrationForm() {
         <form onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-6 col-12-mobile">
-              <input className="text" type="text" name="name" id="name" value={name} onChange={handleNameChange} placeholder="John Doe" />
+              <input className="text" type="text" name="name" id="name" value={name} onChange={handleNameChange} placeholder="John Doe" required />
             </div>
             <div className="col-6 col-12-mobile">
-              <input className="text" type="text" name="email" id="email" value={email} onChange={handleEmailChange} placeholder="johndoe@domain.tld" />
+              <input className="text" type="text" name="email" id="email" value={email} onChange={handleEmailChange} placeholder="johndoe@domain.tld" required />
             </div>
             <div className="col-6 col-12-mobile">
-              <input className="text" type="tel" name="phone" id="phone" value={phone} onChange={handlePhoneChange} placeholder="+1 (234) 567-8900" />
+              <input className="text" type="tel" name="phone" id="phone" value={phone} onChange={handlePhoneChange} placeholder="+1 (234) 567-8900" required />
             </div>
 
             <StatusMessage

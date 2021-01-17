@@ -11,7 +11,7 @@ $breakpoints: ();
 /// Sets breakpoints.
 /// @param {map} $x Breakpoints.
 @mixin breakpoints($x: ()) {
-  $breakpoints: $x;
+  $breakpoints: $x !global;
 }
 
 /// Wraps @content in a @media block targeting a specific orientation.
@@ -166,11 +166,8 @@ $breakpoints: ();
 
         // Not (< x and > y)
         @else if ($op == 'not') {
-          $media: 'screen and (max-width: ' +
-            ($x - 1) +
-            '), screen and (min-width: ' +
-            ($y + 1) +
-            ')';
+          $media: 'screen and (max-width: ' + ($x - 1) +
+            '), screen and (min-width: ' + ($y + 1) + ')';
         }
 
         // Equal (>= x and <= y)
@@ -199,9 +196,7 @@ $breakpoints: ();
   }
 
   // Output.
-  @if $media {
-    @media #{$media} {
-      @content;
-    }
+  @media #{$media} {
+    @content;
   }
 }

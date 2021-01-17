@@ -1,3 +1,9 @@
+# Bridge
+
+By Alexander Cai, Zaki Rangwala, and Ayden Heal for Hack the North 2021.
+
+Bridge is an innovative technology based on [Twilio](https://www.twilio.com/docs) which allows you to get the data you need, even when you're out of range of a cellular network!
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
