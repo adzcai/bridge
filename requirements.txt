@@ -1,7 +1,6 @@
 autopep8==1.5.4
 beautifulsoup4==4.9.1
 bs4==0.0.1
-certifi==2020.6.20
 chardet==3.0.4
 click==7.1.2
 colorama==0.4.4
@@ -20,7 +19,6 @@ hyperframe==5.2.0
 idna==2.10
 IMDbPY==2020.9.25
 itsdangerous==1.1.0
-gunicorn==20.0.4
 Jinja2==2.11.2
 joblib==1.0.0
 loguru==0.5.3
@@ -47,11 +45,7 @@ Unidecode==1.1.2
 urllib3==1.25.9
 Werkzeug==1.0.1
 win32-setctime==1.0.3
-Flask==0.8
 Jinja2==2.6
-Werkzeug==0.8.3
 certifi==0.0.8
-chardet==1.0.1
 distribute==0.6.24
 gunicorn==0.14.2
-requests==0.11.1
