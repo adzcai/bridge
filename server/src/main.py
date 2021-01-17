@@ -20,15 +20,17 @@ auth_token = config.auth_token
 client = Client(account_sid, auth_token)
 
 # Send Message
+
+
 @app.route("/")
 @cross_origin()
 def send_message():
-        message = client.messages.create(
-            from_= config.Twilio_number,
-            body='Testing',
-            to = config.reciever
-        )
-        return "<h1>Success</h1>"
+    message = client.messages.create(
+        from_=config.Twilio_number,
+        body='Testing',
+        to=config.reciever
+    )
+    return "<h1>Success</h1>"
 
 # Reply to SMS
 
@@ -39,7 +41,10 @@ def reply():
     body = request.values.get('Body', None)
     command = base_command.Command(body).command
     return_text = ''
-    if command == "stock":
+    if command == "help":
+        response = helps.Help(body)
+        return_text = response.exec()
+    elif command == "stock":
         response = stock.Stock(body)
         return_text = response.exec()
     elif command == "mail":
@@ -47,6 +52,9 @@ def reply():
         return_text = response.exec()
     elif command == "weather":
         response = weather.Weather(body)
+        return_text = response.exec()
+    elif command == "translate":
+        response = translate.Translate(body)
         return_text = response.exec()
     res = MessagingResponse()
     if return_text == '':
