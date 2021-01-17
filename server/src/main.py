@@ -6,7 +6,7 @@ from twilio.twiml.messaging_response import MessagingResponse
 from commands import commands
 import requests
 import commands.utils
-import os
+import config
 from commands import *
 
 # Flask app configuration
@@ -15,12 +15,12 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Initialize Twilio client configuration
-account_sid = os.environ["TWILIO_ACCOUNT_SID"]
-auth_token = os.environ["TWILIO_AUTH_TOKEN"]
+account_sid = config.account_sid
+auth_token = config.auth_token
 client = Client(account_sid, auth_token)
 
-
 # Send Message
+
 
 @app.route("/")
 @cross_origin()
@@ -67,6 +67,7 @@ def reply():
         res.message(return_text)
     return str(res)
 
+
 # Main Driver
-if __name__ == "__main__": 
-    app.run(host='0.0.0.0') 
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
