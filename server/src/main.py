@@ -66,8 +66,3 @@ def reply():
     else:
         res.message(return_text)
     return str(res)
-
-
-# Main Driver
-if __name__ == "__main__":
-    app.run(host='0.0.0.0')
