@@ -16,6 +16,8 @@ export default function verifyHandler(req, res) {
     }));
   }
 
+  console.log('verifying ' + number);
+
   // client.verify.services(verifySid)
   //   .verifications
   //   .create({ to: number, channel: 'sms' })

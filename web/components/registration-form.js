@@ -56,6 +56,7 @@ export default function RegistrationForm() {
     event.preventDefault();
 
     try {
+      console.log(state.state);
       if (state.state === 'initial' || state.state === 'error') {
         const val = await axios.post('/api/verify', {
           name, email, phone
