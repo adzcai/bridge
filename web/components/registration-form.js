@@ -89,8 +89,10 @@ export default function RegistrationForm() {
             state: 'verified',
             message: ''
           });
+
           db.collection('users').doc(phone).set({
-            verified: true
+            verified: true,
+            verificationCode
           });
         } else {
           setState({
@@ -123,7 +125,7 @@ export default function RegistrationForm() {
               <input className="text" type="text" name="email" id="email" value={email} onChange={handleEmailChange} placeholder="johndoe@domain.tld" required />
             </div>
             <div className="col-6 col-12-mobile">
-              <input className="text" type="tel" name="phone" id="phone" value={phone} onChange={handlePhoneChange} placeholder="+1 (234) 567-8900" required />
+              <input className="text" type="tel" name="phone" id="phone" value={phone} onChange={handlePhoneChange} placeholder="+12345678900" required />
             </div>
 
             <StatusMessage

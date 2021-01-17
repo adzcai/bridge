@@ -6,3 +6,4 @@ node_modules
 config.py
 .google-cookie
 __pycache__
+.venv
