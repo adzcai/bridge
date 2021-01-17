@@ -4,9 +4,9 @@ from flask_cors import CORS, cross_origin
 from twilio.rest import Client
 from twilio.twiml.messaging_response import MessagingResponse
 from commands import commands
-import config
 import requests
 import commands.utils
+import os
 from commands import *
 
 # Flask app configuration
@@ -15,12 +15,12 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Initialize Twilio client configuration
-account_sid = config.account_sid
-auth_token = config.auth_token
+account_sid = os.environ["TWILIO_ACCOUNT_SID"]
+auth_token = os.environ["TWILIO_AUTH_TOKEN"]
 client = Client(account_sid, auth_token)
 
-# Send Message
 
+# Send Message
 
 @app.route("/")
 @cross_origin()

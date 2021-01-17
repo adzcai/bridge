@@ -1,4 +1,4 @@
-import { client, verifySid } from '../../shared/twilio'
+// import { client, verifySid } from '../../shared/twilio'
 
 export default async function checkVerificationHandler(req, res) {
   const phone = req.body.phone;
@@ -9,21 +9,21 @@ export default async function checkVerificationHandler(req, res) {
   }
 
   try {
-    console.log('received code', code);
+    // console.log('received code', code);
 
-    const verificationCheck = await client.verify.services(verifySid)
-      .verificationChecks
-      .create({ to: phone, code });
+    // const verificationCheck = await client.verify.services(verifySid)
+    //   .verificationChecks
+    //   .create({ to: phone, code });
 
-    const status = verificationCheck.status;
+    // const status = verificationCheck.status;
 
-    if (status === 'approved') {
+    // if (status === 'approved') {
       res.statusCode = 200;
       return res.send('Approved');
-    } else {
-      res.statusCode = 400;
-      return res.send('Invalid code!');
-    }
+    // } else {
+    //   res.statusCode = 400;
+    //   return res.send('Invalid code!');
+    // }
   } catch (err) {
     console.error('An error occurred:', err);
     res.statusCode = 500;
