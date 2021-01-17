@@ -19,22 +19,7 @@ account_sid = config.account_sid
 auth_token = config.auth_token
 client = Client(account_sid, auth_token)
 
-# Send Message
-
-
-@app.route("/")
-@cross_origin()
-def send_message():
-    message = client.messages.create(
-        from_=config.Twilio_number,
-        body='Testing',
-        to=config.reciever
-    )
-    return "<h1>Success</h1>"
-
 # Reply to SMS
-
-
 @app.route("/reply", methods=['GET', 'POST'])
 @cross_origin()
 def reply():
