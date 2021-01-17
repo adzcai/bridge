@@ -32,7 +32,7 @@ def check_weather(city_name):
         z = x["weather"]
         weather_description = z[0]["description"]
         current_temperature -= 273.15
-        return round(current_temperature), weather_description
+        return str(round(current_temperature)) + ", " + str(weather_description)
 
     else:
         return "City not found"
